@@ -1,9 +1,9 @@
 export class Key {
   constructor(
-    text = { en: 'a', ru: 'а' },
+    text = {en: 'a', ru: 'а'},
     width = 'base-width',
     lang = 'en',
-    altText = { en: 'A', ru: 'А' },
+    altText = {en: 'A', ru: 'А'},
     code = 'KeyA',
   ) {
     this.node = null;
