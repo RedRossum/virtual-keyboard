@@ -1,0 +1,83 @@
+* {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  max-width: 1105px;
+  margin: 0 auto;
+}
+
+.text {
+  width: 100%;
+  height: 32vh;
+  font-size: 22px;
+  resize: vertical;
+}
+
+.keyboard {
+  width: 100%;
+  margin-top: 30px;
+  border: black solid 1px;
+  border-radius: 2px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.keyboard__key {
+  position: relative;
+  width: 5%;
+  max-width: 55px;
+  height: 55px;
+  margin: 5px;
+  font-size: 18px;
+  color: black;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  box-shadow: 5px 0 20px rgba(130, 0, 0, 0.5);
+  transition: box-shadow 0.3s, background-color 0.3s;
+
+  &:active {
+    background-color: rgba(130, 0, 0, 0.3);
+    box-shadow: 0 0 1px rgba(130, 0, 0, 0.5);
+  }
+
+  &_base-width {
+    width: 5%;
+    max-width: 80px;
+  }
+
+  &_mid-width {
+    width: 10%;
+    max-width: 90px;
+  }
+
+  &_large-width {
+    width: 17%;
+    max-width: 160px;
+  }
+
+  &_space-width {
+    width: 38%;
+    max-width: 400px;
+  }
+}
+
+.active {
+  background-color: rgba(130, 0, 0, 0.8);
+  box-shadow: 0 0 1px rgba(130, 0, 0, 0.5);
+}
+
+.shift {
+  text-transform: uppercase;
+}
+
+@media (hover: hover) {
+  .keyboard__key:hover {
+    background-color: rgba(130, 0, 0, 0.8);
+  }
+}
