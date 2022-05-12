@@ -1,4 +1,4 @@
-import {objKeys} from './objKeys.js';
+import { objKeys } from './objKeys.js';
 
 function isCaps(code) {
   return [objKeys.capsKey, objKeys.capsKeyCode].includes(code);
@@ -25,13 +25,12 @@ function isLayoutKeys(func, ...combinations) {
 
   document.addEventListener('keydown', (event) => {
     pressed.add(event.code);
-
-    for (const combination of combinations) {
+    combinations.forEach((combination) => {
       if (pressed.has(combination[0]) && pressed.has(combination[1])) {
         pressed.clear();
         func(event);
       }
-    }
+    });
   });
 
   document.addEventListener('keyup', (event) => {
@@ -39,4 +38,6 @@ function isLayoutKeys(func, ...combinations) {
   });
 }
 
-export {isCaps, isShift, isLayoutKeys, isArrow, isCtrl, isRepeat};
+export {
+  isCaps, isShift, isLayoutKeys, isArrow, isCtrl, isRepeat,
+};

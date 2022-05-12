@@ -1,9 +1,9 @@
-import {KeyAlternative} from "./js/keyAlternative";
-import {Key} from "./js/key";
-import {KeyLetter} from "./js/keyLetter";
-import {keys} from "./js/keys";
+import { KeyAlternative } from './js/keyAlternative';
+import { Key } from './js/key';
+import { KeyLetter } from './js/keyLetter';
+import { keys } from './js/keys';
 import * as typingTools from './js/typingTools.js';
-import {objKeys} from './js/objKeys.js';
+import { objKeys } from './js/objKeys.js';
 import './main.scss';
 
 class Keyboard {
@@ -54,8 +54,11 @@ class Keyboard {
     const fragment = document.createDocumentFragment();
     let row = document.createElement('div');
     row.classList.add('row');
-    for (const key of keys) {
-      const {text, width, altText, end, type, code} = key;
+    keys.forEach((key) => {
+      const {
+        text, width, altText, end, type, code,
+      } = key;
+      // eslint-disable-next-line no-use-before-define
       const newKey = createKey(text, width, this.lang, altText, type, code);
       newKey.init();
       if (text.en === objKeys.shiftKey) {
@@ -69,7 +72,7 @@ class Keyboard {
         row = document.createElement('div');
         row.classList.add('row');
       }
-    }
+    });
     return fragment;
   }
 
@@ -122,7 +125,7 @@ class Keyboard {
   }
 
   backspaceHandler() {
-    const {value: value, selectionStart: start, selectionEnd: end} = this.textArea;
+    const { value, selectionStart: start, selectionEnd: end } = this.textArea;
     if (start !== end) {
       this.textArea.value = `${value.slice(0, start)}${value.slice(end)}`;
       this.setCursorLocation(start);
@@ -135,13 +138,13 @@ class Keyboard {
   }
 
   tabHandler() {
-    const {value: value, selectionStart: start, selectionEnd: end} = this.textArea;
+    const { value, selectionStart: start, selectionEnd: end } = this.textArea;
     this.textArea.value = `${value.substring(0, start)}\t${value.substring(end)}`;
     this.setCursorLocation(start + 1);
   }
 
   delHandler() {
-    const {value: value, selectionStart: start, selectionEnd: end} = this.textArea;
+    const { value, selectionStart: start, selectionEnd: end } = this.textArea;
     if (start !== end) {
       this.textArea.value = `${value.slice(0, start)}${value.slice(end)}`;
     } else if (end !== value.length) {
@@ -151,23 +154,24 @@ class Keyboard {
   }
 
   capsHandler(event) {
-    const {selectionStart: start} = this.textArea;
+    const { selectionStart: start } = this.textArea;
     this.capsLock = !this.capsLock;
     event.target.classList.toggle('active');
-    for (const key of this.keys) {
+    this.keys.forEach((key) => {
       key.caps();
-    }
+    });
     this.setCursorLocation(start);
   }
 
   enterHandler() {
-    const {value: value, selectionStart: start, selectionEnd: end} = this.textArea;
+    const { value, selectionStart: start, selectionEnd: end } = this.textArea;
     this.textArea.value = `${value.substring(0, start)}\n${value.substring(end)}`;
     this.setCursorLocation(start + 1);
   }
 
   shiftHandler(event) {
-    const {selectionStart: start} = this.textArea;
+    const { selectionStart: start } = this.textArea;
+    // eslint-disable-next-line no-constant-condition
     if (!this.shift || true) {
       this.setShiftedKeys();
       event.target.classList.toggle('active');
@@ -180,7 +184,7 @@ class Keyboard {
   }
 
   ctrlHandler() {
-    const {selectionStart: start} = this.textArea;
+    const { selectionStart: start } = this.textArea;
     if (this.shift) {
       this.switchLanguage();
     }
@@ -203,7 +207,7 @@ class Keyboard {
   }
 
   shiftMouseHandler() {
-    const {selectionStart: start} = this.textArea;
+    const { selectionStart: start } = this.textArea;
     this.nodeShift.classList.toggle('active');
     this.setShiftedKeys();
     this.setCursorLocation(start);
@@ -211,18 +215,18 @@ class Keyboard {
 
   setShiftedKeys() {
     this.shift = !this.shift;
-    for (const key of this.keys) {
+    this.keys.forEach((key) => {
       key.shift();
-    }
+    });
   }
 
   winHandler() {
-    const {selectionStart: start} = this.textArea;
+    const { selectionStart: start } = this.textArea;
     this.setCursorLocation(start);
   }
 
   altHandler() {
-    const {selectionStart: start} = this.textArea;
+    const { selectionStart: start } = this.textArea;
     this.setCursorLocation(start);
   }
 
@@ -231,23 +235,23 @@ class Keyboard {
   }
 
   arrowDownHandler() {
-    const {value: value} = this.textArea;
+    const { value } = this.textArea;
     this.setCursorLocation(value.length);
   }
 
   arrowLeftHandler() {
-    const {selectionStart: start} = this.textArea;
+    const { selectionStart: start } = this.textArea;
     this.setCursorLocation(start - 1);
   }
 
   arrowRightHandler() {
-    const {selectionStart: start} = this.textArea;
+    const { selectionStart: start } = this.textArea;
     this.setCursorLocation(start + 1);
   }
 
   typingText(event) {
     const word = event.target.textContent;
-    const {value: value, selectionStart: start, selectionEnd: end} = this.textArea;
+    const { value, selectionStart: start, selectionEnd: end } = this.textArea;
     if (this.capsLock && this.shift) {
       this.textArea.value = `${value.substring(0, start)}${word.toLowerCase()}${value.substring(end)}`;
     } else if (this.capsLock || this.shift) {
@@ -261,9 +265,9 @@ class Keyboard {
   switchLanguage() {
     this.lang = this.lang === 'en' ? 'ru' : 'en';
     localStorage.setItem('lang', this.lang);
-    for (const key of this.keys) {
+    this.keys.forEach((key) => {
       key.changeLanguage(this.lang);
-    }
+    });
   }
 
   setCursorLocation(location) {

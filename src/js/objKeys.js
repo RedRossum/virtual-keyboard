@@ -1,4 +1,5 @@
-export let objKeys = {
+// eslint-disable-next-line import/prefer-default-export
+export const objKeys = {
   backspaceKey: 'Backspace',
   tabKey: 'Tab',
   delKey: 'DEL',
@@ -23,4 +24,4 @@ export let objKeys = {
   controlRightKey: 'ControlRight',
   alternative: 'alternative',
   functional: 'functional',
-}
+};
